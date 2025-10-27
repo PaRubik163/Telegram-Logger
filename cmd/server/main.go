@@ -1,1 +1,29 @@
 package main
+
+import (
+	"log"
+	"teleglogger/internal/bot"
+	"teleglogger/internal/config"
+	"teleglogger/internal/server"
+
+	"github.com/joho/godotenv"
+)
+
+func main(){
+	err := godotenv.Load("./config/.env")
+
+	if err != nil{
+		log.Fatal("failed to load .env file")
+	}
+
+	conf := config.NewConfig()
+
+	bot, err := bot.NewBot(conf)
+
+	if err != nil{
+		log.Fatal(err)
+	}
+
+	server := server.NewServer(bot)
+	server.Run(conf.GRPCPort)
+}

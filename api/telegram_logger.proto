@@ -1,1 +1,19 @@
 syntax = "proto3";
+
+package api;
+
+option go_package = "pkg/api/logger";
+
+service TelegramLogger {
+    rpc SendLog(LogRequest) returns (LogResponse);
+}
+
+message LogRequest {
+    string topic = 1;
+    string level = 2;
+    string text = 3;
+}
+
+message LogResponse {
+    bool ok = 1;
+}
