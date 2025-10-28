@@ -1,6 +1,8 @@
-module teleglogger
+module github.com/PaRubik163/Telegram-Logger
 
 go 1.24.0
+
+toolchain go1.24.9
 
 require (
 	github.com/go-telegram-bot-api/telegram-bot-api/v5 v5.5.1

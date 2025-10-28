@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"net"
 	"encoding/json"
-	"teleglogger/internal/bot"
-	pb "teleglogger/pkg/api/logger"
+	"github.com/PaRubik163/Telegram-Logger/internal/bot"
+	pb "github.com/PaRubik163/Telegram-Logger/pkg/api/logger"
 
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"

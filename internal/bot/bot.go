@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"net/http"
 	"strconv"
-	"teleglogger/internal/config"
+	"github.com/PaRubik163/Telegram-Logger/internal/config"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
 

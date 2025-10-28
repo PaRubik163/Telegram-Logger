@@ -2,9 +2,9 @@ package main
 
 import (
 	"log"
-	"teleglogger/internal/bot"
-	"teleglogger/internal/config"
-	"teleglogger/internal/server"
+	"github.com/PaRubik163/Telegram-Logger/internal/bot"
+	"github.com/PaRubik163/Telegram-Logger/internal/config"
+	"github.com/PaRubik163/Telegram-Logger/internal/server"
 
 	"github.com/joho/godotenv"
 )
