@@ -18,12 +18,12 @@ func main(){
 
 	conf := config.NewConfig()
 
-	bot, err := bot.NewBot(conf)
+	tgBot, err := bot.NewBot(conf)
 
 	if err != nil{
 		log.Fatal(err)
 	}
 
-	server := server.NewServer(bot)
+	server := server.NewServer(tgBot)
 	server.Run(conf.GRPCPort)
 }

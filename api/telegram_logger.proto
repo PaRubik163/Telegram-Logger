@@ -11,7 +11,17 @@ service TelegramLogger {
 message LogRequest {
     string topic = 1;
     string level = 2;
-    string text = 3;
+    LogData data = 3;
+}
+
+message LogData {
+    string user_id = 1;
+    string user_ip = 2;
+    string method = 3;
+    string path = 4;
+    string status = 5;
+    string time = 6;
+    string latency = 7;
 }
 
 message LogResponse {

@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"net"
+	"encoding/json"
 	"teleglogger/internal/bot"
 	pb "teleglogger/pkg/api/logger"
 
@@ -30,7 +31,7 @@ func (s *Server) Run(addr string) (error) {
 		return fmt.Errorf("failed to listen server %v", err)
 	}
 
-	pb.RegisterTelegramLoggerServer(s.s, &Server{})
+	pb.RegisterTelegramLoggerServer(s.s, s)
 
 	logrus.Info("Start listen server")
 	if err := s.s.Serve(listner); err != nil{
@@ -41,9 +42,19 @@ func (s *Server) Run(addr string) (error) {
 }
 
 func (s *Server) SendLog(ctx context.Context, req *pb.LogRequest) (*pb.LogResponse, error) {
-	if err := s.bot.Send(req.Topic, req.Level, req.Text); err != nil{
-		return &pb.LogResponse{Ok: false}, err
+	if req.Data == nil{
+		return &pb.LogResponse{Ok: false}, fmt.Errorf("missing Data filed in request")
 	}
+
+	dataBytes, err := json.MarshalIndent(req.Data, "", "  ")
+	if err != nil {
+		return &pb.LogResponse{Ok: false}, fmt.Errorf("failed to marshal log data: %v", err)
+	}
+	go func (topic, level, text string){
+		if err := s.bot.Send(topic, level, text); err != nil{
+			 fmt.Printf("Failed to send message %v ", err)
+		}
+	}(req.Topic, req.Level, string(dataBytes))
 
 	return &pb.LogResponse{Ok: true}, nil
 }
